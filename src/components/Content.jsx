@@ -31,7 +31,7 @@ const Content = () => {
 
           </div>
         </div>
-        <div className=" space-y-2" >
+        <div className=" space-y-2 overflow-hidden">
           <a href={url} target="_blank" className="text-2xl font-semibold group-hover:underline group-focus:underline">
             {title}
           </a>
