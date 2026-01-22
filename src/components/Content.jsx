@@ -9,7 +9,7 @@ const Content = () => {
     return (
         <div
         className=" mx-auto group p-2 border-2 border-opacity-30
-        hover:no-underline focus:no-underline "
+        hover:no-underline focus:no-underline"
       >
         <img
           role="presentation"
@@ -31,7 +31,7 @@ const Content = () => {
 
           </div>
         </div>
-        <div className=" space-y-2" >
+        <div className=" space-y-2 overflow-hidden">
           <a href={url} target="_blank" className="text-2xl font-semibold group-hover:underline group-focus:underline">
             {title}
           </a>

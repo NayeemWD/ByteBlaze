@@ -13,6 +13,7 @@ const Blog = () => {
     reading_time_minutes,
     public_reactions_count,
     published_at,
+    // eslint-disable-next-line no-unused-vars
     tags,
   } = blog;
 
@@ -23,7 +24,7 @@ const Blog = () => {
   return (
     <div>
       <div className="max-w-3xl px-6 py-16 mx-auto space-y-12">
-        <article className="space-y-8 ">
+        <article className="space-y-8  ">
           <div className="space-y-6">
             <h1 className="text-4xl font-bold md:tracking-tight md:text-5xl">
               {title}
@@ -52,7 +53,6 @@ const Blog = () => {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  ZZZZ
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="w-4 h-4"
