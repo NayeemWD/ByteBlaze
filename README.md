@@ -6,6 +6,7 @@ ByteBlaze is a modern and visually appealing blog application built with React. 
 
 ## Features
 
+- **User Authentication:** Secure user registration and login functionality powered by Firebase.
 - **Browse Articles:** Users can view a list of blog posts fetched from the `dev.to` API.
 - **Read Articles:** A dedicated page to read the full content of a selected article.
 - **Bookmarking:** Users can save their favorite articles for later reading. Bookmarked articles are stored locally in the browser.
@@ -44,6 +45,7 @@ The project is structured as follows:
 - **React-Hot-Toast:** For adding notifications to the application.
 - **React-Spinners:** For displaying loading indicators.
 - **React-Markdown:** To render Markdown content.
+- **Firebase Authentication:** For user authentication.
 
 ## Getting Started
 
