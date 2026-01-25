@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { MdBookmarkAdd } from "react-icons/md";
 import { Link, Outlet, useLoaderData } from "react-router-dom";
 import { saveBlog } from "../utils";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Blog = () => {
 
   const [tabIndex, setTabIndex] = useState(0);
   const blog = useLoaderData();
+  const { user } = useContext(AuthContext); // Get user from context
+
   const {
     comments_count,
     title,
@@ -18,7 +21,12 @@ const Blog = () => {
   } = blog;
 
   const handleBookmark = (blog) => {
-    saveBlog(blog);
+    if (user?.uid) {
+      saveBlog(blog, user.uid);
+    } else {
+      // Fallback or alert if somehow accessed without auth, though protected route prevents this
+      console.error("User not authenticated");
+    }
   };
 
   return (
@@ -43,9 +51,8 @@ const Blog = () => {
               <Link
                 onClick={() => setTabIndex(0)}
                 to=""
-                className={`flex items-center flex-shrink-0 px-5 py-3 space-x-2  rounded-t-lg ${
-                  tabIndex === 0 ? "border border-b-0" : "border-b"
-                } dark:border-gray-400 `}
+                className={`flex items-center flex-shrink-0 px-5 py-3 space-x-2  rounded-t-lg ${tabIndex === 0 ? "border border-b-0" : "border-b"
+                  } dark:border-gray-400 `}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -59,14 +66,13 @@ const Blog = () => {
                 >
                   <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                 </svg>
-                <span>Conttenk</span>
+                <span>Content</span>
               </Link>
               <Link
                 onClick={() => setTabIndex(1)}
                 to={`author`}
-                className={`flex items-center flex-shrink-0 px-5 py-3 space-x-2  rounded-t-lg ${
-                  tabIndex === 1 ? "border border-b-0" : "border-b"
-                } dark:border-gray-400 `}
+                className={`flex items-center flex-shrink-0 px-5 py-3 space-x-2  rounded-t-lg ${tabIndex === 1 ? "border border-b-0" : "border-b"
+                  } dark:border-gray-400 `}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

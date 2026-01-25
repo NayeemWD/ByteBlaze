@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const Nav = () => {
   const [theme, setTheme] = useState("light");
+  const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -18,41 +22,95 @@ const Nav = () => {
     }
   };
 
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("User Logged Out");
+        navigate("/");
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-lg px-4 sm:px-8 fixed z-10">
       <div className="flex-1">
         <Link
-          to='/'
-        className="btn btn-ghost gap-0 text-secondary  normal-case text-2xl">
+          to="/"
+          className="btn btn-ghost gap-0 text-secondary  normal-case text-2xl"
+        >
           Byte<span className="text-primary">Blaze</span>
         </Link>
       </div>
       <div className="flex-none gap-2">
         <ul className="menu menu-horizontal px-1 hidden sm:flex items-center gap-5">
-
-          <NavLink 
-          to='/' 
-          className={({ isActive }) => 
-            isActive ? 'text-primary font-bold' : 'font-bold'}
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "text-primary font-bold" : "font-bold"
+            }
           >
             Home
           </NavLink>
 
-          <NavLink 
-          to='/blogs' 
-          className={({ isActive }) => 
-            isActive ? 'text-primary font-bold' : 'font-bold'}
+          <NavLink
+            to="/blogs"
+            className={({ isActive }) =>
+              isActive ? "text-primary font-bold" : "font-bold"
+            }
           >
             Blogs
           </NavLink>
 
-          <NavLink 
-          to='/bookmarks' 
-          className={({ isActive }) => 
-            isActive ? 'text-primary font-bold' : 'font-bold'}
+          <NavLink
+            to="/bookmarks"
+            className={({ isActive }) =>
+              isActive ? "text-primary font-bold" : "font-bold"
+            }
           >
             Bookmarks
           </NavLink>
+
+          {user ? (
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="User"
+                    src={
+                      user?.photoURL ||
+                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    }
+                  />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <a className="justify-between">
+                    {user?.displayName || "User"}
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>{user?.email}</a>
+                </li>
+                <li>
+                  <button onClick={handleLogOut}>Logout</button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <Link to="/login" className="btn btn-primary btn-sm">
+                Login
+              </Link>
+              <Link to="/register" className="btn btn-secondary btn-sm">
+                Register
+              </Link>
+            </div>
+          )}
         </ul>
         <label className="grid cursor-pointer place-items-center">
           <input

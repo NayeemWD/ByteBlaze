@@ -1,30 +1,36 @@
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
 
-export const getBlogs = () => {
-    let blogs =[]
-    const storedBlogs = localStorage.getItem('blogs')
-    if (storedBlogs) {
-        blogs = JSON.parse(storedBlogs)
-    }
+// Helper to get the key based on UID
+const getInstanceKey = (uid) => `bookmarks_${uid}`;
 
-    return blogs
-}
-// save 
-export const saveBlog = blog => {
-    let blogs = getBlogs()
-    const isExist = blogs.find(b => b.id === blog.id)
-    if (isExist) {
-      return toast.error('Already Bookmarked!')
-    }
-    blogs.push(blog)
-    localStorage.setItem('blogs', JSON.stringify(blogs))
-    toast.success('Blog Bookmarked Successfully!')
+export const getBlogs = (uid) => {
+  if (!uid) return [];
+  let blogs = [];
+  const storedBlogs = localStorage.getItem(getInstanceKey(uid));
+  if (storedBlogs) {
+    blogs = JSON.parse(storedBlogs);
   }
+  return blogs;
+};
+
+// save
+export const saveBlog = (blog, uid) => {
+  if (!uid) return toast.error("User not authenticated!");
+  let blogs = getBlogs(uid);
+  const isExist = blogs.find((b) => b.id === blog.id);
+  if (isExist) {
+    return toast.error("Already Bookmarked!");
+  }
+  blogs.push(blog);
+  localStorage.setItem(getInstanceKey(uid), JSON.stringify(blogs));
+  toast.success("Blog Bookmarked Successfully!");
+};
 
 // delete
-export const deleteBlog = id => {
-    let blogs = getBlogs()
-    const remaining = blogs.filter(b => b.id !== id)
-    localStorage.setItem('blogs', JSON.stringify(remaining))
-    toast.success('Blog Removed from Bookmark!')
-  }
+export const deleteBlog = (id, uid) => {
+  if (!uid) return;
+  let blogs = getBlogs(uid);
+  const remaining = blogs.filter((b) => b.id !== id);
+  localStorage.setItem(getInstanceKey(uid), JSON.stringify(remaining));
+  toast.success("Blog Removed from Bookmark!");
+};
