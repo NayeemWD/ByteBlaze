@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
+
 
 const Login = () => {
     const { signIn, googleLogin } = useContext(AuthContext);
@@ -87,11 +89,12 @@ const Login = () => {
                     <div className="flex flex-col gap-2 p-4 pt-0">
                         <div className="divider">OR</div>
                         <button onClick={handleGoogleLogin} className="btn btn-outline">
+                            < FcGoogle className="text-2xl"/>
                             Sign in with Google
                         </button>
                     </div>
                     <p className="p-4 text-center">
-                        Don't have an account?{" "}
+                        Don&apos;t have an account?{" "}
                         <Link to="/register" className="text-primary font-bold">
                             Register
                         </Link>
