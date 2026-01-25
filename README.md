@@ -2,7 +2,7 @@
 
 ByteBlaze is a modern and visually appealing blog application built with React. It allows users to read articles, bookmark their favorites, and enjoy a dynamic user experience with theme-switching capabilities. The application fetches blog posts from the `dev.to` API and provides a seamless reading experience.
 
-**Live Site:** [ByteBlaze](https://byte-blaze.netlify.app/)
+**Live Site:** [ByteBlaze](https://artical-project.netlify.app/)
 
 ## Features
 
